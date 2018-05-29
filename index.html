@@ -59,7 +59,7 @@ $.ajax({
 	var articles = result.results;
 	console.log(articles);
 	articles.forEach(function(article){
-		if(article.title.includes("Trump") || article.title.includes("trump")){
+		if(article.title.toLowerCase().includes("trump")){
 			return;
 		}
 
