@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>News Feed</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<style>
+		.heading{
+			background-color: white;
+			width: 100%;
+		}
+	</style>
+</head>
+<body>
+
+<div class="sticky-top heading">
+	<div class="row">
+		<div class="col-lg-12 text-center">
+	<h1>Enough About Trump</h1>
+	<img src="https://i1.wp.com/www.marketspartans.com/wp-content/uploads/2017/04/no-trump..jpg?fit=300%2C299" alt="">
+		<h1>Todays NYT headlines that don't contain the words Donald Trump!</h1>
+	</div>
+	</div>
+</div>
+
+
+
+
+	<div id="articles">
+		<!-- Each article is displayed here in a 12 col row from the api -->
+<!-- 	</div>
+	</div> -->
+	
+
+	<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+
+  <script>
+
+  		var articlesDiv = $('#articles');
+		var jumbo = "<div class=\"jumbotron\">";
+		var close = "</div>";
+		var image = "<img src=\"";
+		var imgClose= "\">";
+
+var url = "https://api.nytimes.com/svc/topstories/v2/home.json";
+url += '?' + $.param({
+  'api-key': "3bf2ce790d11457d94dfbbed3496d26e"
+});
+$.ajax({
+  url: url,
+  method: 'GET',
+}).done(function(result) {
+	var articles = result.results;
+	console.log(articles);
+	articles.forEach(function(article){
+		if(article.title.includes("Trump") || article.title.includes("trump")){
+			return;
+		}
+
+		articlesDiv.append(jumbo + "<h3 class=\"text-center\">" + article.title + "<br><a target=\"_blank\"" +  "href=\"" + article.url + "\">View More</h3></div>");
+	})
+}).fail(function(err) {
+  throw err;
+});
+
+
+
+
+  </script>
+</body>
+</html>
