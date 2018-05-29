@@ -53,15 +53,15 @@ $.ajax({
   url: url,
   method: 'GET',
 }).done(function(result) {
-	var articles = result.results;
-	console.log(articles);
-	articles.forEach(function(article){
-		if(article.title.toLowerCase().includes("trump")){
-			return;
-		}
+	var articleElements = result.results
+	  .filter(function(article) {
+	    return !article.title.toLowerCase().includes("trump");
+	  })
+	  .map(function(article) {
+	    return $(jumbo + "<h3 class=\"text-center\">" + article.title + "<br><a target=\"_blank\"" +  "href=\"" + article.url + "\">View More</h3></div>");
+	  });
 
-		articlesDiv.append(jumbo + "<h3 class=\"text-center\">" + article.title + "<br><a target=\"_blank\"" +  "href=\"" + article.url + "\">View More</h3></div>");
-	})
+	articlesDiv.append(articleElements);
 }).fail(function(err) {
   throw err;
 });
