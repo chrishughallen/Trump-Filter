@@ -4,24 +4,27 @@
 	<meta charset="UTF-8">
 	<title>No Trump News</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+
 	<style>
-		.heading{
-			background-color: white;
-			width: 100%;
+		body{
+			font-size: 1.25em;
+		}
+
+		a:visited{
+			color:purple;
 		}
 	</style>
+
 </head>
 <body>
 
-<div class="sticky-top heading">
 	<div class="row">
-		<div class="col-lg-12 text-center">
-	<h1>Enough About Trump</h1>
-	<img src="https://i1.wp.com/www.marketspartans.com/wp-content/uploads/2017/04/no-trump..jpg?fit=300%2C299" alt="">
-		<h1>Today's headlines that don't contain the words Donald Trump!</h1>
-	</div>
+		<div class="col-12 text-center">
+	<h3><u>Today's headlines that don't involve Trump</u> </h3>
+		</div>
 	</div>
 </div>
+<br>
 	<div id="articles">
 
 	<script
@@ -35,23 +38,23 @@
   <script>
 
   		var articlesDiv = $('#articles');
-		var jumbo = "<div class=\"jumbotron\">";
+		var div = "<div class=\"col-12 text-center\">";
 
 var url = "https://api.nytimes.com/svc/topstories/v2/home.json";
 url += '?' + $.param({
-  'api-key': "d7287e5bd5b047f389384ae12f9ad76f"
+  'api-key': ""
 });
 $.ajax({
   url: url,
   method: 'GET',
 }).done(function(result) {
 	var articles = result.results;
-	console.log(articles);
 	articles.forEach(function(article){
-		if(article.title.toLowerCase().includes("trump")){
+
+		if(article.title.toLowerCase().includes("trump") || article.title.toLowerCase().includes("president")){
 			return;
 		}
-		articlesDiv.append(jumbo + "<h3 class=\"text-center\">" + article.title + "<br><a target=\"_blank\"" +  "href=\"" + article.url + "\">View More</h3></div>");
+		articlesDiv.append(div + "<a target=\"_blank\" href=\"" + article.url + "\"" + "<p class=\"text-center\">" + article.title + "</p></a><hr>") 
 	})
 }).fail(function(err) {
   throw err;
